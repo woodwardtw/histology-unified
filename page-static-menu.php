@@ -6,8 +6,7 @@ Template Name: Static Menu
 
 <?php get_header(); ?>
 
-			<div id="content" class="clearfix row" style="background-image: url(<?php echo randomHomeBackground() ;?>)">
-
+			<div id="content" class="clearfix row" style="background-image: url(<?php echo randomHomeBackground();?>)">
 				<div id="main" class="col col-lg-12 clearfix" role="main">
 
 					<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
@@ -42,8 +41,8 @@ Template Name: Static Menu
                             	<h2>Additional Resources</h2>
                             	<div class="cell-main-index">
 	                            	<div><a href="quizzes/">Quizzes</a></div>
-	                            	<div><a href="review-textbook/">Textbook</a></div>
 	                            	<div><a href="_randomizer/">Randomized</a></div>
+	                            	<div><a href="review-textbook/">Textbook</a></div>
 	                            </div>
                             </div>                          
 

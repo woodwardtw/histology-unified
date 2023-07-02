@@ -1088,14 +1088,16 @@ function make_nav_list(){
 }
 
 function randomHomeBackground(){
-    $rows = get_field('background'); // get all the rows
+  $post_id = get_option('page_on_front');
+  $rows = get_field('background', $post_id ); // get all the rows
     if($rows){
-         $rand_row = $rows[ array_rand( $rows ) ]; // get a random row
+        $rand_row = $rows[ array_rand( $rows ) ]; // get a random row
         $rand_row_image = $rand_row['background_image' ]; // get the sub field value 
         return $rand_row_image;
     }
 }
 
+add_filter('acf/settings/remove_wp_meta_box', '__return_false');
 
 
 //ADD SEARCH TO NAV
