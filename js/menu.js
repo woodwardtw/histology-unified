@@ -181,3 +181,24 @@ function updateURL(id) {
         window.history.pushState({ path: newurl }, '', newurl);
     }
 }
+
+
+//modal stuff
+const modal = document.querySelector('#vidModal');
+const modalButton = document.querySelector('#videoPlayer');
+const close = document.getElementsByClassName("close")[0];
+
+
+modalButton.onclick = function() {
+  modal.style.display = "block";
+}
+
+close.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}

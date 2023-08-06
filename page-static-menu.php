@@ -43,6 +43,7 @@ Template Name: Static Menu
 	                            	<div><a href="quizzes/">Quizzes</a></div>
 	                            	<div><a href="_randomizer/">Randomized</a></div>
 	                            	<div><a href="review-textbook/">Textbook</a></div>
+	                            	<div><button id="videoPlayer">Introductory video</button></div>
 	                            </div>
                             </div>                          
 
@@ -86,5 +87,18 @@ Template Name: Static Menu
 				<?php //get_sidebar(); // sidebar 1 ?>
 
 			</div> <!-- end #content -->
+			<!--video modal-->
+			<div id="vidModal" class="modal">
+				<div class="modal-content">
+					 <div class="modal-header">
+	      					<span class="close">&times;</span>
+	      					<h2>Introductory video</h2>
+	    			</div>
+					<div class="modal-body">
+				<iframe src="https://cdnapisec.kaltura.com/p/1888231/sp/188823100/embedIframeJs/uiconf_id/28242191/partner_id/1888231?iframeembed=true&playerId=kplayer&entry_id=1_hau3966i&flashvars[streamerType]=auto" width="560" height="395" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>					</div>			
+
+				</div>
+			</div>
+
 
 <?php get_footer(); ?>
