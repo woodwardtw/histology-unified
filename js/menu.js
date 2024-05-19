@@ -182,20 +182,24 @@ function updateURL(id) {
     }
 }
 
+//*************************MODAL
 
-//modal stuff
 const modal = document.querySelector('#vidModal');
 const modalButton = document.querySelector('#videoPlayer');
 const close = document.getElementsByClassName("close")[0];
 
-
-modalButton.onclick = function() {
-  modal.style.display = "block";
+if(modalButton){
+      modalButton.onclick = function() {
+        modal.style.display = "block";
+    }  
 }
 
-close.onclick = function() {
-  modal.style.display = "none";
+if(close){
+    close.onclick = function() {
+        modal.style.display = "none";
+    }  
 }
+
 
 window.onclick = function(event) {
   if (event.target == modal) {

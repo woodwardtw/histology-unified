@@ -51,6 +51,8 @@ Template Name: Sorter Menu
 										if(!in_array($post_id,$exclude)){
 											if($children){
 												$expand = "<a href='?parent={$post_id}'>expand</a></span>";
+											} else {
+												$expand = "<a href='?parent={$post_id}'>add children</a></span>";
 											}
 											echo "<li draggable='true' class='sorter' id='post-{$post_id}' data-id='{$post_id}' data-date='{$page->post_date}'>{$page->post_title} 
 												<div class='buttons'>
@@ -85,7 +87,7 @@ Template Name: Sorter Menu
 
 						</footer> <!-- end article footer -->
 
-					</article> <!-- end article -->
+					</article> <!-- end article --> 
 					<div class="modal" tabindex="-1" role="dialog" id="new-post-modal">
 					  <div class="modal-dialog" role="document">
 					    <div class="modal-content">

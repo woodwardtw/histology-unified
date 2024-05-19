@@ -95,7 +95,8 @@ Template Name: Static Menu
 	      					<h2>Introductory video</h2>
 	    			</div>
 					<div class="modal-body">
-				<iframe src="https://cdnapisec.kaltura.com/p/1888231/sp/188823100/embedIframeJs/uiconf_id/28242191/partner_id/1888231?iframeembed=true&playerId=kplayer&entry_id=1_hau3966i&flashvars[streamerType]=auto" width="560" height="395" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>					</div>			
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/crO40uImag4?si=q_BSrzE8DeyxQQt9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>				
+					</div>			
 
 				</div>
 			</div>

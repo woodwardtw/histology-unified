@@ -1,3 +1,5 @@
+//creates the larger menu to link to randomized items
+
 function hasAnyGrandchildren(tree) {
   let newTree = [];
   let length = tree.length;
@@ -144,6 +146,7 @@ function overviewClean(title) {
 }
 
 function stunLinks() {
+        console.log('hi tom')
   jQuery(".childbearing").click(function(e) {
     e.preventDefault();
     jQuery(".active").removeClass("active");

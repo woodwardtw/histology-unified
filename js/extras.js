@@ -16,16 +16,6 @@
 
 
 
-//main index interactions -- left over and to be deleted
-// jQuery('.childbearing').click(function(e) {
-//   e.preventDefault(); 
-//   jQuery('.active').removeClass('active');
-//   jQuery(this).parent().children('ul').toggleClass('active');
-//   jQuery(this).parentsUntil('.cell-main-index').addClass('active');
-
-// });
-
-
 
 //indent buttons that lead with a hyphen 
 var buttons = document.getElementsByClassName('button');
@@ -67,7 +57,7 @@ document.onkeydown = function(evt) {
 function hideSlideTitles(){   
     window.location.hash = 'hidden';     
     let list = document.querySelector('.button-wrap');
-    //shuffleNodes(list);//shuffle the overlays
+    shuffleNodes(list);//shuffle the overlays
     var mainSlide = document.getElementById('slide-button-1'); 
     if (mainSlide){
       var buttons = document.getElementsByClassName('button');
@@ -88,16 +78,18 @@ function hideSlideTitles(){
 }
 
   function bigRandomizer(){   
+    //console.log(localStorage.getItem('random-list'));
       if ( localStorage.getItem('random-list')){
     
           let randomLinks = localStorage.getItem('random-list').split(',');
-
+          console.log(randomLinks)
+          let randomPageCounter = parseInt(localStorage.getItem('random-list-page-number'))
           if (!localStorage.getItem('random-list-page-number')){
             console.log('no page number')
-             var randomPageCounter = localStorage.setItem('random-list-page-number', 0)
+              randomPageCounter = localStorage.setItem('random-list-page-number', 0)
           } else {
-            console.log('page # ' + localStorage.getItem('random-list-page-number'))
-            var randomPageCounter = parseInt(localStorage.getItem('random-list-page-number'))
+            console.log('local storage page # ' + localStorage.getItem('random-list-page-number'))
+             randomPageCounter = parseInt(localStorage.getItem('random-list-page-number'))
           }
           
           let totalPages = document.querySelector('.total-pages').innerHTML = (randomPageCounter+1) +' of ' + randomLinks.length;
@@ -109,9 +101,9 @@ function hideSlideTitles(){
                 let prev = document.getElementById('previous-link')
                 prev.innerHTML = '&nbsp;'
           } else {
-            console.log(randomLinks[randomPageCounter])
+            console.log('else ' +randomLinks[randomPageCounter])
             if (randomLinks[randomPageCounter+1]){
-                jQuery( "#nav-arrow-right" ).wrap( '<a href="'+randomLinks[randomPageCounter+1]+'" id="next-link"></a>' );
+                jQuery( "#nav-arrow-right" ).wrap( '<a href="'+randomLinks[randomPageCounter+1]+'#hidden" id="next-link"></a>' );
                 let next = document.getElementById('next-link')
                 //next.href = randomLinks[randomPageCounter+1]
                 randomNavMath(next,1)
@@ -184,24 +176,26 @@ jQuery( document ).ready(function() {
   } 
   if (window.location.hash.substring(1) === 'hidden'){
       let mainSlide = document.getElementById('slide-button-0');
-      bigRandomizer();
+        bigRandomizer();
       if (mainSlide){
         mainSlide.setAttribute('href', mainSlide.href+'#hidden');
       }
-
     hideSlideTitles();
   }
 });
 
-
-//shuffle overlay elements from https://stackoverflow.com/questions/7070054/javascript-shuffle-html-list-element-order
+//UPPER MENU RANDOMIZING**************************
+//shuffle overlay elements 
  function shuffleNodes(list) {
-        var nodes = list.children, i = 0;
-        nodes = Array.prototype.sort.call(nodes);
-        while(i < nodes.length) {
-           list.appendChild(nodes[i]);
-           ++i;
-        }
+        const nodes = list.children;
+        shuffleNodes(list);        
+    }
+
+//from so https://stackoverflow.com/questions/7070054/javascript-shuffle-html-list-element-order
+function shuffleNodes(list) {
+        for (var i = list.children.length; i >= 0; i--) {
+          list.appendChild(list.children[Math.random() * i | 0]);
+      }
     }
 
 //remove hash from url
@@ -216,23 +210,27 @@ function removeHash () {
 if (document.getElementById('slide-the-pages')){  
   let slider = document.getElementById('slide-the-pages');
   let max = slider.max;
+
+  //var location = window.location.href.split('#')[0];
+  var urlArray = window.location.href.split('#')[0].split('/');
+  //console.log(urlArray);
+  if(document.getElementById('quizzer').dataset.quizstate){
+      var state = document.getElementById('quizzer').dataset.quizstate;
+  }
+  var urlState = window.location.href.split('#')[1];
+  var lastSegment = urlArray.pop(); 
+  console.log('state - ' + state) 
+  console.log('urlstate - ' + urlState) 
   slider.oninput = function() {
-    //console.log(slider.value);
-    var location = window.location.href.split('#')[0];
-    var urlArray = location.split('/');
-    // console.log(urlArray);
-    // var lastSegment = urlArray.pop() || urlArray.pop();  
-    //console.log(lastSegment)
-  var state = document.getElementById('quizzer').dataset.quizstate;
-  var urlState = window.location.hash.substring(1);
-  var lastSegment = urlArray.pop() || urlArray.pop();  
-  if (state === 'hidden' || urlState === 'hidden'){
-    var newPage = lastSegment.replace(/\d/g, '')+getRandomInt(max);//set this to variable and randomize if hash = hidden 
-    window.location.assign(urlArray.join('/')+'/'+newPage+'/#hidden');
-  } else {
-      var newPage = lastSegment.replace(/\d/g, '')+slider.value; 
-      window.location.assign(urlArray.join('/')+'/'+newPage);
-    }
+    //console.log(slider.value);   
+      if (state == 'hidden' || urlState == 'hidden'){
+        console.log('i am hidden')
+        var newPage = lastSegment.replace(/\d/g, '')+getRandomInt(max);//set this to variable and randomize if hash = hidden 
+        window.location.assign(urlArray.join('/')+newPage+'#hidden');
+      } else {
+          var newPage = lastSegment.replace(/\d/g, '')+slider.value; 
+          window.location.assign(urlArray.join('/')+'/'+newPage);
+        }
   }
 }
 

@@ -1077,3 +1077,10 @@ i {
   text-decoration: none;
   cursor: pointer;
 }
+
+#videoPlayer {
+  border: none;
+  background: #333333;
+  color: #fff;
+  padding: 7px 10px;
+}
