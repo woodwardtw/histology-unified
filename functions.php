@@ -768,6 +768,7 @@ if(!function_exists('hist_script')){
             $version= '1.2';
             $in_footer = true;
             wp_enqueue_script('histology-script', get_stylesheet_directory_uri() . '/js/extras.js', array('jquery', 'menu-js'), $version, $in_footer);
+            wp_localize_script('histology-script', 'WPURLS', array( 'siteurl' => get_option('siteurl')));
         }
     }
 }
@@ -871,17 +872,26 @@ function has_kids($pageID) {
     return sizeof($children);
 }
 
+//for the slider to navigate better
+function sliderSlideArray($all_children){
+  foreach ($all_children as $key => $child) {
+    // code...
+    var_dump($child->ID);
+    var_dump($child->post_name);
+  }
+}
+
 
 //THIS IS THE NEXT SLIDE FUNCTION AT THE BOTTOM OF THE PAGE
 function getPrevNext(){
     $post_id = get_the_ID();
-    $ancestor_id = get_ancestors($post_id,'page', 'post_type')[0];
+    $ancestor_id = get_ancestors($post_id,'page', 'post_type')[0];    
     $pagelist = get_pages( array(
      'parent'=> $ancestor_id,
      'sort_order' => 'asc',
      'sort_column'  => 'post_date' //sorting by date created as a way to avoid 01 necessity
-      ) );
-
+      ) );    
+    //sliderSlideArray($pagelist);
         $pages = array();
         //remove kids
         foreach ($pagelist as $page) {
@@ -899,7 +909,7 @@ function getPrevNext(){
             $nextID = $pages[$current+1];    
         }    
 
-        echo '<div class="navigation col-md-9" id="hist-nav" data-pages="'.$page_num.'">';
+        echo '<div class="navigation col-md-9" id="hist-nav" data-pages="'.$page_num.'" data-ancestor="'.$ancestor_id.'">';
         //PREVIOUS
         if(empty($prevID)){
             echo '<div class="col-md-5 nav-arrow-empty" id="nav-arrow-left"></div>';
@@ -938,7 +948,7 @@ function getPrevNext(){
         }
 
         if ($page_num >1){
-        echo '<div class="page-slider col-md-12"><input type="range" min="1" max="'.$page_num.'" value="'.($current+1).'" class="slider" id="slide-the-pages"></div>';
+        //echo '<div class="page-slider col-md-12"><input type="range" min="1" max="'.$page_num.'" value="'.($current+1).'" class="slider" id="slide-the-pages"></div>';
     }
 }
 

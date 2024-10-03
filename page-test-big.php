@@ -50,8 +50,9 @@ Template Name: Histology Page
 										//$contentTrue = subTrue('slide_text');
 										$count = $count+1;
 										if ($title != ' ' && strlen($title) != 0){
-											array_push($menu,$title);
+											array_push($menu,$title);						
 										}
+										//var_dump($menu);
 									?>
 									<div id="subcontent-<?php echo $count;?>" class="subcontent-<?php echo $count;?> subslide" <?php get_post_background_img ($post)?>>
 										<img id="overlay-<?php echo $count ;?>" src="<?php echo $image['url']; ?>" alt="<?php echo $title . ' ' . $content;?>">

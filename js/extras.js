@@ -205,13 +205,37 @@ function removeHash () {
 }
 
 
+function fetchChildren(ancestorId){
+  const url = WPURLS.siteurl+`/wp-json/wp/v2/pages?parent=${ancestorId}&order=asc`;
+  var linksArray = [];
+  //console.log(url)
+  fetch(
+      url
+    )
+      .then(function(response) {
+      // Convert to JSON
+      return response.json();
+    })
+      .then(function(data) {
+      // GOOD!
+      data.forEach(async (page)=>{
+        linksArray.push(page.link);
+      })
+      
+    });
+      return linksArray;
+  }
+
 
 //SLIDER NAVIGATION
 if (document.getElementById('slide-the-pages')){  
   let slider = document.getElementById('slide-the-pages');
-  let max = slider.max;
+  let max = slider.max-1;
+  console.log('max='+max); 
+  const ancestorId = document.getElementById('hist-nav').dataset.ancestor;
+  const links = fetchChildren(ancestorId);
+  console.log(links)
 
-  //var location = window.location.href.split('#')[0];
   var urlArray = window.location.href.split('#')[0].split('/');
   //console.log(urlArray);
   if(document.getElementById('quizzer').dataset.quizstate){
@@ -219,18 +243,26 @@ if (document.getElementById('slide-the-pages')){
   }
   var urlState = window.location.href.split('#')[1];
   var lastSegment = urlArray.pop(); 
-  console.log('state - ' + state) 
-  console.log('urlstate - ' + urlState) 
-  slider.oninput = function() {
-    //console.log(slider.value);   
-      if (state == 'hidden' || urlState == 'hidden'){
+  console.log('state is - ' + state);
+  console.log('urlstate - ' + urlState);
+  const sliderValue = parseInt(slider.value);
+  console.log(sliderValue >= max);
+  slider.oninput = function() {    
+      if (state === 'hidden' || urlState === 'hidden'){
         console.log('i am hidden')
         var newPage = lastSegment.replace(/\d/g, '')+getRandomInt(max);//set this to variable and randomize if hash = hidden 
         window.location.assign(urlArray.join('/')+newPage+'#hidden');
       } else {
-          var newPage = lastSegment.replace(/\d/g, '')+slider.value; 
-          window.location.assign(urlArray.join('/')+'/'+newPage);
+        const newPage = links[(sliderValue)]; 
+        console.log(newPage);
+        if(max >= sliderValue){
+          console.log(sliderValue-1)
+          console.log(max)
+          window.location.assign(newPage);
+        } else {
+          alert('No more pages in this content area.')
         }
+      }
   }
 }
 
