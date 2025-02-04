@@ -79,49 +79,25 @@ function hideSlideTitles(){
 
   function bigRandomizer(){   
     //console.log(localStorage.getItem('random-list'));
-      if ( localStorage.getItem('random-list')){
-    
-          let randomLinks = localStorage.getItem('random-list').split(',');
-          console.log(randomLinks)
-          let randomPageCounter = parseInt(localStorage.getItem('random-list-page-number'))
-          if (!localStorage.getItem('random-list-page-number')){
-            console.log('no page number')
-              randomPageCounter = localStorage.setItem('random-list-page-number', 0)
-          } else {
-            console.log('local storage page # ' + localStorage.getItem('random-list-page-number'))
-             randomPageCounter = parseInt(localStorage.getItem('random-list-page-number'))
-          }
-          
-          let totalPages = document.querySelector('.total-pages').innerHTML = (randomPageCounter+1) +' of ' + randomLinks.length;
+      if ( localStorage.getItem('random-list')){// do you have the menu?
+          const menuList = localStorage.getItem('random-list').split(",");
+          console.log(menuList);
+          const nav = document.getElementById('hist-nav');
 
-          if (localStorage.getItem('random-list-page-number') == 0){
-                // let next = document.getElementById('next-link')
-                // next.href = randomLinks[randomPageCounter+1]
-                // randomNavMath(next,1)
-                let prev = document.getElementById('previous-link')
-                prev.innerHTML = '&nbsp;'
-          } else {
-            console.log('else ' +randomLinks[randomPageCounter])
-            if (randomLinks[randomPageCounter+1]){
-                jQuery( "#nav-arrow-right" ).wrap( '<a href="'+randomLinks[randomPageCounter+1]+'#hidden" id="next-link"></a>' );
-                let next = document.getElementById('next-link')
-                //next.href = randomLinks[randomPageCounter+1]
-                randomNavMath(next,1)
-            }
-
-            if (document.getElementById('previous-link')){
-              let previous = document.getElementById('previous-link')
-              previous.href = randomLinks[randomPageCounter-1]
-              randomNavMath(previous,-1)
-            }
-          }
+         // const prev = document.getElementById('previous-link');
+         // const next = document.getElementById('next-link');
+        //const randomPrev = Math.floor(Math.random() * menuList.length);
+          const randomNext = Math.floor(Math.random() * menuList.length);
+          //prev.href = menuList[randomPrev];
+          //next.href = menuList[randomNext];
+           nav.innerHTML =`<a class="btn" id="btn-random" href="${menuList[randomNext]}">randomize</a>`
         }
     }
 
 
 function randomNavMath(id,value){
-   let randomPageCounter = parseInt(localStorage.getItem('random-list-page-number'))
-  id.addEventListener("click", function(){
+   let randomPageCounter = parseInt(localStorage.getItem('random-list-page-number'));
+   id.addEventListener("click", function(){
    localStorage.setItem('random-list-page-number', (parseInt(randomPageCounter)+value))
   });
 }
@@ -227,44 +203,44 @@ function fetchChildren(ancestorId){
   }
 
 
-//SLIDER NAVIGATION
-if (document.getElementById('slide-the-pages')){  
-  let slider = document.getElementById('slide-the-pages');
-  let max = slider.max-1;
-  console.log('max='+max); 
-  const ancestorId = document.getElementById('hist-nav').dataset.ancestor;
-  const links = fetchChildren(ancestorId);
-  console.log(links)
+// //SLIDER NAVIGATION
+// if (document.getElementById('slide-the-pages')){  
+//   let slider = document.getElementById('slide-the-pages');
+//   let max = slider.max-1;
+//   console.log('max='+max); 
+//   const ancestorId = document.getElementById('hist-nav').dataset.ancestor;
+//   const links = fetchChildren(ancestorId);
+//   console.log(links)
 
-  var urlArray = window.location.href.split('#')[0].split('/');
-  //console.log(urlArray);
-  if(document.getElementById('quizzer').dataset.quizstate){
-      var state = document.getElementById('quizzer').dataset.quizstate;
-  }
-  var urlState = window.location.href.split('#')[1];
-  var lastSegment = urlArray.pop(); 
-  console.log('state is - ' + state);
-  console.log('urlstate - ' + urlState);
-  const sliderValue = parseInt(slider.value);
-  console.log(sliderValue >= max);
-  slider.oninput = function() {    
-      if (state === 'hidden' || urlState === 'hidden'){
-        console.log('i am hidden')
-        var newPage = lastSegment.replace(/\d/g, '')+getRandomInt(max);//set this to variable and randomize if hash = hidden 
-        window.location.assign(urlArray.join('/')+newPage+'#hidden');
-      } else {
-        const newPage = links[(sliderValue)]; 
-        console.log(newPage);
-        if(max >= sliderValue){
-          console.log(sliderValue-1)
-          console.log(max)
-          window.location.assign(newPage);
-        } else {
-          alert('No more pages in this content area.')
-        }
-      }
-  }
-}
+//   var urlArray = window.location.href.split('#')[0].split('/');
+//   //console.log(urlArray);
+//   if(document.getElementById('quizzer').dataset.quizstate){
+//       var state = document.getElementById('quizzer').dataset.quizstate;
+//   }
+//   var urlState = window.location.href.split('#')[1];
+//   var lastSegment = urlArray.pop(); 
+//   console.log('state is - ' + state);
+//   console.log('urlstate - ' + urlState);
+//   const sliderValue = parseInt(slider.value);
+//   console.log(sliderValue >= max);
+//   slider.oninput = function() {    
+//       if (state === 'hidden' || urlState === 'hidden'){
+//         console.log('i am hidden')
+//         var newPage = lastSegment.replace(/\d/g, '')+getRandomInt(max);//set this to variable and randomize if hash = hidden 
+//         window.location.assign(urlArray.join('/')+newPage+'#hidden');
+//       } else {
+//         const newPage = links[(sliderValue)]; 
+//         console.log(newPage);
+//         if(max >= sliderValue){
+//           console.log(sliderValue-1)
+//           console.log(max)
+//           window.location.assign(newPage);
+//         } else {
+//           alert('No more pages in this content area.')
+//         }
+//       }
+//   }
+// }
 
 
 

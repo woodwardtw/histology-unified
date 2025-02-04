@@ -1084,3 +1084,10 @@ i {
   color: #fff;
   padding: 7px 10px;
 }
+
+a#btn-random{
+    margin: -20px auto 20px auto;
+    width: 200px;
+    display: block;
+    border: 1px solid black;
+}

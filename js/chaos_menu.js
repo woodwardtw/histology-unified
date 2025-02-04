@@ -161,7 +161,7 @@ function stunLinks() {
       console.log(links)
       let travelLinks = [];
       links.forEach(function(link){
-        travelLinks.push(link+'/#hidden')
+        travelLinks.push(link+'#hidden')
       })
       let  randomLinks = shuffle(travelLinks);
       localStorage.setItem('random-list',randomLinks);
