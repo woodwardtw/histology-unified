@@ -41,7 +41,7 @@ Template Name: Static Menu
                             	<h2>Additional Resources</h2>
                             	<div class="cell-main-index">
 	                            	<div><a href="quizzes/">Quizzes</a></div>
-	                            	<div><a href="_randomizer/">Randomized</a></div>
+	                            	<div><a href="_randomizer/">Randomize</a></div>
 	                            	<div><a href="review-textbook/">Textbook</a></div>
 	                            	<div><button id="videoPlayer">Introductory video</button></div>
 	                            </div>

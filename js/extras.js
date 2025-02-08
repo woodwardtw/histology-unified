@@ -77,22 +77,38 @@ function hideSlideTitles(){
     }    
 }
 
-  function bigRandomizer(){   
-    //console.log(localStorage.getItem('random-list'));
-      if ( localStorage.getItem('random-list')){// do you have the menu?
-          const menuList = localStorage.getItem('random-list').split(",");
-          console.log(menuList);
-          const nav = document.getElementById('hist-nav');
-
-         // const prev = document.getElementById('previous-link');
-         // const next = document.getElementById('next-link');
-        //const randomPrev = Math.floor(Math.random() * menuList.length);
-          const randomNext = Math.floor(Math.random() * menuList.length);
-          //prev.href = menuList[randomPrev];
-          //next.href = menuList[randomNext];
-           nav.innerHTML =`<a class="btn" id="btn-random" href="${menuList[randomNext]}">randomize</a>`
-        }
+function bigRandomizer() {   
+    if (localStorage.getItem('random-list')) { // Check if menu exists
+        return localStorage.getItem('random-list').split(",");
     }
+    return [];
+}
+
+function randomizerButton() {
+    let menuList = bigRandomizer();
+    const nav = document.getElementById('hist-nav');
+    console.log(menuList.length)
+    if (menuList.length === 0) {
+        nav.innerHTML = `<p>No more items.</p>`;
+        return;
+    }
+
+    const randomNext = Math.floor(Math.random() * menuList.length);
+    const selectedItem = menuList[randomNext];
+
+    // Create the button and populate it with a URL
+    nav.innerHTML = `<a class="btn" id="btn-random" href="${selectedItem}">Next</a>`;
+
+    // Delay the removal to ensure the button is displayed first
+    setTimeout(() => {
+        document.getElementById('btn-random').addEventListener('click', function (event) {
+            // Remove the clicked item from the list
+            menuList.splice(randomNext, 1);
+            localStorage.setItem('random-list', menuList.join(",")); // Update storage
+        });
+    }, 0);
+}
+
 
 
 function randomNavMath(id,value){
@@ -153,6 +169,7 @@ jQuery( document ).ready(function() {
   if (window.location.hash.substring(1) === 'hidden'){
       let mainSlide = document.getElementById('slide-button-0');
         bigRandomizer();
+        randomizerButton();
       if (mainSlide){
         mainSlide.setAttribute('href', mainSlide.href+'#hidden');
       }
