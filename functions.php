@@ -909,7 +909,8 @@ function getPrevNext(){
             $nextID = $pages[$current+1];    
         }    
 
-        echo '<div class="navigation col-md-9" id="hist-nav" data-pages="'.$page_num.'" data-ancestor="'.$ancestor_id.'">';
+        echo "<div class='navigation col-md-9' id='hist-nav' data-pages='{$page_num}' data-ancestor='{$ancestor_id}'>";
+
         //PREVIOUS
         if(empty($prevID)){
             echo '<div class="col-md-5 nav-arrow-empty" id="nav-arrow-left"></div>';

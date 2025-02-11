@@ -86,10 +86,13 @@ function bigRandomizer() {
 
 function randomizerButton() {
     let menuList = bigRandomizer();
+    //console.log(menuList)
     const nav = document.getElementById('hist-nav');
-    console.log(menuList.length)
+    //console.log(menuList.length)
+    const pageCount = menuList.length;
+    nav.innerHTML = nav.innerHTML + menuList.length;
     if (menuList.length === 0) {
-        nav.innerHTML = `<p>No more items.</p>`;
+        nav.innerHTML = `<a class="btn" id="btn-random" href="https://digitalhistology.org/_randomizer/">No more items.</a>`;
         return;
     }
 
@@ -97,7 +100,7 @@ function randomizerButton() {
     const selectedItem = menuList[randomNext];
 
     // Create the button and populate it with a URL
-    nav.innerHTML = `<a class="btn" id="btn-random" href="${selectedItem}">Next</a>`;
+    nav.innerHTML = `<a class="btn" id="btn-random" href="${selectedItem}">Next - ${pageCount}</a>`;
 
     // Delay the removal to ensure the button is displayed first
     setTimeout(() => {
