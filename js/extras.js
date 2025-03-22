@@ -100,7 +100,7 @@ function randomizerButton() {
     const selectedItem = menuList[randomNext];
 
     // Create the button and populate it with a URL
-    nav.innerHTML = `<a class="btn" id="btn-random" href="${selectedItem}">Next - ${pageCount}</a>`;
+    nav.innerHTML = `<a class="btn" id="btn-random" href="${selectedItem}">Next (${pageCount} remain)</a>`;
 
     // Delay the removal to ensure the button is displayed first
     setTimeout(() => {
