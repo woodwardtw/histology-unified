@@ -92,7 +92,7 @@ function randomizerButton() {
     const pageCount = menuList.length;
     nav.innerHTML = nav.innerHTML + menuList.length;
     if (menuList.length === 0) {
-        nav.innerHTML = `<a class="btn" id="btn-random" href="https://digitalhistology.org/_randomizer/">No more items.</a>`;
+        nav.innerHTML = `<a class="btn no-more" id="btn-random" href="https://digitalhistology.org/_randomizer/">No more items.</a>`;
         return;
     }
 
